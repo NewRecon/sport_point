@@ -8,8 +8,15 @@ import ru.top.security_service.controller.SecurityController;
 public class SecurityControllerImpl implements SecurityController {
 
     @Override
-    public String getMethodName() {
-        return null;
+    public void login() {
+        // TODO Auto-generated method stub
+        System.out.println("НУ ПРИВЕТ!");
+    }
+
+    @Override
+    public void register() {
+        // TODO Auto-generated method stub
+
     }
 
 }
