@@ -1,26 +1,29 @@
-package ru.top.security_service.controller.impl;
+package ru.top.security_service.service.impl;
 
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
-import ru.top.security_service.controller.SecurityController;
-import ru.top.security_service.dto.UserRq;
+import ru.top.security_service.dto.UserData;
 import ru.top.security_service.service.SecurityService;
+import ru.top.security_service.service.UserService;
 
-@RestController
+@Service
 @RequiredArgsConstructor
-public class SecurityControllerImpl implements SecurityController {
+public class SecurityServiceImpl implements SecurityService {
 
-    private final SecurityService securityService;
+    private final UserService userService;
 
     @Override
-    public void login(UserRq request) {
+    public void login() {
         // TODO Auto-generated method stub
+
+        UserData user = userService.getById(null);
+
         throw new UnsupportedOperationException("Unimplemented method 'login'");
     }
 
     @Override
-    public void register(UserRq request) {
+    public void register() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'register'");
     }
