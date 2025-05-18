@@ -1,11 +1,11 @@
-package ru.top.security_service.service.impl;
+package ru.top.security_service.service.security.impl;
 
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import ru.top.security_service.dto.UserData;
-import ru.top.security_service.service.SecurityService;
-import ru.top.security_service.service.UserService;
+import ru.top.security_service.service.entity.UserService;
+import ru.top.security_service.service.security.SecurityService;
 
 @Service
 @RequiredArgsConstructor

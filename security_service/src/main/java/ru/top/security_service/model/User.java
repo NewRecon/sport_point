@@ -14,11 +14,17 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import ru.top.security_service.enums.Role;
 
 @Table(name = "users")
 @Entity
+@Setter
+@Getter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class User implements UserDetails {

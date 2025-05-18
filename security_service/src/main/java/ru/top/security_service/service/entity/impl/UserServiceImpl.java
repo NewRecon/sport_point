@@ -1,4 +1,4 @@
-package ru.top.security_service.service.impl;
+package ru.top.security_service.service.entity.impl;
 
 import java.util.UUID;
 
@@ -10,7 +10,7 @@ import ru.top.security_service.exception.UserNotFoundException;
 import ru.top.security_service.mapper.UserMapper;
 import ru.top.security_service.model.User;
 import ru.top.security_service.repository.UserRepository;
-import ru.top.security_service.service.UserService;
+import ru.top.security_service.service.entity.UserService;
 
 @Service
 @RequiredArgsConstructor

@@ -1,4 +1,4 @@
-package ru.top.security_service.service;
+package ru.top.security_service.service.security;
 
 public interface SecurityService {
 

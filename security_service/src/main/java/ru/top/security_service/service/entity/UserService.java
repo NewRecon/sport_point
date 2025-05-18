@@ -1,4 +1,4 @@
-package ru.top.security_service.service;
+package ru.top.security_service.service.entity;
 
 import ru.top.security_service.dto.UserData;
 

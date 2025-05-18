@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 import ru.top.security_service.controller.SecurityController;
 import ru.top.security_service.dto.UserRq;
-import ru.top.security_service.service.SecurityService;
+import ru.top.security_service.service.security.SecurityService;
 
 @RestController
 @RequiredArgsConstructor
