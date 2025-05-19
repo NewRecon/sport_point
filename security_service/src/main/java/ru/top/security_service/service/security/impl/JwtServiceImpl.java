@@ -1,16 +1,16 @@
 package ru.top.security_service.service.security.impl;
 
+import java.security.Key;
 import java.util.Date;
-import java.util.Map;
-import java.util.function.Function;
-
-import javax.crypto.SecretKey;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Header;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 import ru.top.security_service.service.security.JwtService;
 
 public class JwtServiceImpl implements JwtService {
@@ -19,33 +19,19 @@ public class JwtServiceImpl implements JwtService {
     private String jwtSigningKey;
 
     @Override
-    public String generateToken(UserDetails userDetails) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'generateToken'");
-    }
+    public String generateToken(UserDetails user) {
 
-    @Override
-    public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'generateToken'");
-    }
+        Claims claims = buildClaims(user);
+        Header header = builHeader();
+        Key key = getKey(jwtSigningKey);
 
-    @Override
-    public boolean isTokenValid(String token, UserDetails userDetails) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isTokenValid'");
-    }
-
-    @Override
-    public boolean isTokenExpired(String token) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isTokenExpired'");
-    }
-
-    @Override
-    public <T> T extractClaim(String token, Function<Claims, T> claimsResolvers) {
-        final Claims claims = extractAllClaims(token);
-        return claimsResolvers.apply(claims);
+        return Jwts.builder()
+                .header().add(header).and()
+                .claims(claims)
+                .subject(user.getUsername())
+                .expiration(new Date(System.currentTimeMillis() + 100000 * 60 * 24))
+                .signWith(key)
+                .compact();
     }
 
     @Override
@@ -55,20 +41,21 @@ public class JwtServiceImpl implements JwtService {
     }
 
     @Override
-    public Date extractExpiration(String token) {
+    public boolean isTokenValid(String token, UserDetails userDetails) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'extractExpiration'");
+        throw new UnsupportedOperationException("Unimplemented method 'isTokenValid'");
     }
 
-    @Override
-    public Claims extractAllClaims(String token) {
-        return Jwts.parser().decryptWith(getSigningKey()).build().parseSignedClaims(token).getPayload();
+    private Header builHeader() {
+        return Jwts.header().build();
     }
 
-    @Override
-    public SecretKey getSigningKey() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getSigningKey'");
+    private Claims buildClaims(UserDetails user) {
+        return Jwts.claims().build();
     }
 
+    private Key getKey(String jwtSigningKey) {
+        byte[] keyBytes = Decoders.BASE64.decode(jwtSigningKey);
+        return Keys.hmacShaKeyFor(keyBytes);
+    }
 }
