@@ -17,6 +17,7 @@ public class SecurityConfig {
                 .csrf(scrf -> scrf.disable())
                 .cors(cors -> cors.disable())
                 .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
+                .sessionManagement(sm -> sm.addSessionAuthenticationStrategy(null))
                 .build();
     }
 

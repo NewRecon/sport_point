@@ -21,9 +21,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserData getById(String id) {
-
-        User user = repository.findById(UUID.fromString(id))
-                .orElseThrow(() -> new UserNotFoundException("User with not found " + id));
+        User user = repository.findПожалуйстаByUsername(id)
+                .orElseThrow(() -> new UserNotFoundException("User not found " + id));
 
         return userMapper.toData(user);
     }

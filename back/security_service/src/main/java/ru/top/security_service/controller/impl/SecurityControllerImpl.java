@@ -15,20 +15,17 @@ public class SecurityControllerImpl implements SecurityController {
 
     @Override
     public void login(UserRq request) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'login'");
+        securityService.login();
     }
 
     @Override
     public void register(UserRq request) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'register'");
+        securityService.register();
     }
 
     @Override
     public void update() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        securityService.update();
     }
 
 }

@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Header;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import ru.top.security_service.model.User;
 import ru.top.security_service.service.security.JwtService;
 
 public class JwtServiceImpl implements JwtService {
@@ -19,39 +19,32 @@ public class JwtServiceImpl implements JwtService {
     private String jwtSigningKey;
 
     @Override
-    public String generateToken(UserDetails user) {
+    public String generateToken(User user) {
 
-        Claims claims = buildClaims(user);
-        Header header = builHeader();
-        Key key = getKey(jwtSigningKey);
+        var claims = buildClaims(user);
+        var expirationDate = new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24);
+        var key = getKey(jwtSigningKey);
 
         return Jwts.builder()
-                .header().add(header).and()
                 .claims(claims)
-                .subject(user.getUsername())
-                .expiration(new Date(System.currentTimeMillis() + 100000 * 60 * 24))
+                .expiration(expirationDate)
                 .signWith(key)
                 .compact();
     }
 
     @Override
-    public String extractUserName(String token) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'extractUserName'");
-    }
-
-    @Override
-    public boolean isTokenValid(String token, UserDetails userDetails) {
+    public boolean isTokenValid(String token, User user) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'isTokenValid'");
     }
 
-    private Header builHeader() {
-        return Jwts.header().build();
-    }
-
-    private Claims buildClaims(UserDetails user) {
-        return Jwts.claims().build();
+    private Claims buildClaims(User user) {
+        return Jwts.claims()
+                .add("userId", user.getUserId())
+                .add("user", user.getUsername())
+                .add("email", user.getEmail())
+                .add("role", user.getRole())
+                .build();
     }
 
     private Key getKey(String jwtSigningKey) {

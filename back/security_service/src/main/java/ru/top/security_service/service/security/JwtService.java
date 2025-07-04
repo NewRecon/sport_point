@@ -1,6 +1,6 @@
 package ru.top.security_service.service.security;
 
-import org.springframework.security.core.userdetails.UserDetails;
+import ru.top.security_service.model.User;
 
 public interface JwtService {
 
@@ -10,15 +10,7 @@ public interface JwtService {
      * @param userDetails данные пользователя
      * @return токен
      */
-    public String generateToken(UserDetails userDetails);
-
-    /**
-     * Извлечение имени пользователя из токена
-     *
-     * @param token токен
-     * @return имя пользователя
-     */
-    public String extractUserName(String token);
+    public String generateToken(User userDetails);
 
     /**
      * Проверка токена на валидность
@@ -27,5 +19,5 @@ public interface JwtService {
      * @param userDetails данные пользователя
      * @return true, если токен валиден
      */
-    public boolean isTokenValid(String token, UserDetails userDetails);
+    public boolean isTokenValid(String token, User userDetails);
 }

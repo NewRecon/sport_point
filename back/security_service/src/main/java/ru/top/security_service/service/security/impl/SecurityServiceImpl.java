@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import ru.top.security_service.dto.UserData;
 import ru.top.security_service.service.entity.UserService;
+import ru.top.security_service.service.security.JwtService;
 import ru.top.security_service.service.security.SecurityService;
 
 @Service
@@ -12,14 +13,16 @@ import ru.top.security_service.service.security.SecurityService;
 public class SecurityServiceImpl implements SecurityService {
 
     private final UserService userService;
+    private final JwtService jwtService;
 
     @Override
     public void login() {
-        // TODO Auto-generated method stub
 
         UserData user = userService.getById(null);
 
-        throw new UnsupportedOperationException("Unimplemented method 'login'");
+        System.out.println(user);
+
+        // jwtService.generateToken(user);
     }
 
     @Override
