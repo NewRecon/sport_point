@@ -22,7 +22,7 @@ public class SecurityServiceImpl implements SecurityService {
 
         System.out.println(user);
 
-        // jwtService.generateToken(user);
+        jwtService.generateToken(user);
     }
 
     @Override

@@ -1,7 +1,5 @@
 package ru.top.security_service.service.entity.impl;
 
-import java.util.UUID;
-
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;

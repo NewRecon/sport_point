@@ -1,6 +1,6 @@
 package ru.top.security_service.service.security;
 
-import ru.top.security_service.model.User;
+import ru.top.security_service.dto.UserData;
 
 public interface JwtService {
 
@@ -10,7 +10,7 @@ public interface JwtService {
      * @param userDetails данные пользователя
      * @return токен
      */
-    public String generateToken(User userDetails);
+    public String generateToken(UserData userDetails);
 
     /**
      * Проверка токена на валидность
@@ -19,5 +19,5 @@ public interface JwtService {
      * @param userDetails данные пользователя
      * @return true, если токен валиден
      */
-    public boolean isTokenValid(String token, User userDetails);
+    public boolean isTokenValid(String token, UserData userDetails);
 }

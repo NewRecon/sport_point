@@ -11,18 +11,19 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+    SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .httpBasic(basic -> basic.disable())
                 .csrf(scrf -> scrf.disable())
                 .cors(cors -> cors.disable())
                 .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
-                .sessionManagement(sm -> sm.addSessionAuthenticationStrategy(null))
+                .formLogin(login -> login.permitAll())
+                .logout(logout -> logout.permitAll())
                 .build();
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }

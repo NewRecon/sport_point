@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.top.security_service.enums.Role;
 
 @Data
 @Builder(toBuilder = true)
@@ -17,4 +18,5 @@ public class UserData {
     private String username;
     private String email;
     private String password;
+    private Role role;
 }
