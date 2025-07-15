@@ -9,9 +9,5 @@ import ru.top.security_service.model.User;
 
 public interface UserRepository extends JpaRepository<User, UUID> {
 
-    Optional<User> findПожалуйстаByUsername(String username);
-
-    boolean existsByUsername(String username);
-
-    boolean existsByEmail(String email);
+    Optional<User> findByUsernameAndPassword(String username, String password);
 }

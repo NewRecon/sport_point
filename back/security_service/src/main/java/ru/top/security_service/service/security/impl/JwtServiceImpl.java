@@ -3,6 +3,8 @@ package ru.top.security_service.service.security.impl;
 import java.security.Key;
 import java.util.Date;
 
+import javax.crypto.SecretKey;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -20,33 +22,44 @@ public class JwtServiceImpl implements JwtService {
     private String jwtSigningKey;
 
     @Override
-    public String generateToken(UserData user) {
+    public String generateToken(UserData userData) {
 
-        var claims = buildClaims(user);
+        var claims = buildClaims(userData);
         var expirationDate = new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24);
-        var key = getKey(jwtSigningKey);
+        // var key = getKey(jwtSigningKey);
 
         return Jwts.builder()
                 .claims(claims)
                 .expiration(expirationDate)
-                .signWith(key)
+                // .signWith(key)
                 .compact();
     }
 
     @Override
-    public boolean isTokenValid(String token, UserData user) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isTokenValid'");
+    public boolean isTokenValid(String token, UserData userData) {
+
+        try {
+            Jwts.parser().build().parseSignedClaims(token);
+            return true;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return false;
     }
 
     private Claims buildClaims(UserData user) {
         return Jwts.claims()
-                .add("user", user.getUsername())
+                .subject(user.getUsername())
+                .add("role", user.getRole())
+                .add("email", user.getEmail())
+                .add("userId", user.getUserId())
                 .build();
     }
 
     private Key getKey(String jwtSigningKey) {
         byte[] keyBytes = Decoders.BASE64.decode(jwtSigningKey);
+
         return Keys.hmacShaKeyFor(keyBytes);
     }
 }

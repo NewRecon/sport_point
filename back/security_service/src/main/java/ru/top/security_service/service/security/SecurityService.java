@@ -1,10 +1,11 @@
 package ru.top.security_service.service.security;
 
+import ru.top.security_service.dto.UserData;
+import ru.top.security_service.dto.rs.LoginRs;
+
 public interface SecurityService {
 
-    void login();
+    LoginRs login(UserData userData);
 
-    void register();
-
-    void update();
+    LoginRs register(UserData userData);
 }

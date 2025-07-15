@@ -18,16 +18,19 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
 
     @Override
-    public UserData getById(String id) {
-        User user = repository.findПожалуйстаByUsername(id)
-                .orElseThrow(() -> new UserNotFoundException("User not found " + id));
+    public UserData getUser(UserData userData) {
+
+        User user = repository.findByUsernameAndPassword(userData.getUsername(), userData.getPassword())
+                .orElseThrow(() -> new UserNotFoundException("Uncorrect Username or password"));
 
         return userMapper.toData(user);
     }
 
     @Override
     public void save(UserData userData) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
+
+        var user = userMapper.toEntity(userData);
+
+        repository.save(user);
     }
 }

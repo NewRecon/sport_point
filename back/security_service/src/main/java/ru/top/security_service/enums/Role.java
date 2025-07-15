@@ -1,5 +1,19 @@
 package ru.top.security_service.enums;
 
-public enum Role {
-    ROLE_USER, ROLE_ADMIN
+import org.springframework.security.core.GrantedAuthority;
+
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
+public enum Role implements GrantedAuthority {
+
+    USER("USER"),
+    ADMIN("ADMIN");
+
+    private final String value;
+
+    @Override
+    public String getAuthority() {
+        return value;
+    }
 }

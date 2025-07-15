@@ -10,7 +10,7 @@ public interface JwtService {
      * @param userDetails данные пользователя
      * @return токен
      */
-    public String generateToken(UserData userDetails);
+    public String generateToken(UserData userData);
 
     /**
      * Проверка токена на валидность
@@ -19,5 +19,5 @@ public interface JwtService {
      * @param userDetails данные пользователя
      * @return true, если токен валиден
      */
-    public boolean isTokenValid(String token, UserData userDetails);
+    public boolean isTokenValid(String token, UserData userData);
 }
