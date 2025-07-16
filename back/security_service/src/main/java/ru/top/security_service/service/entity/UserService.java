@@ -4,7 +4,7 @@ import ru.top.security_service.dto.UserData;
 
 public interface UserService {
 
-    UserData getUser(UserData userData);
-
     void save(UserData userData);
+
+    UserData getByUsername(String username);
 }

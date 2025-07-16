@@ -1,10 +1,10 @@
-package ru.top.api_gateway;
+package ru.top.profile_service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ApiGatewayApplicationTests {
+class ProfileServiceApplicationTests {
 
 	@Test
 	void contextLoads() {

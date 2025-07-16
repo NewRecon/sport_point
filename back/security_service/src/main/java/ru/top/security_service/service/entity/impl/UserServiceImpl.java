@@ -1,12 +1,11 @@
 package ru.top.security_service.service.entity.impl;
 
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import ru.top.security_service.dto.UserData;
-import ru.top.security_service.exception.UserNotFoundException;
 import ru.top.security_service.mapper.UserMapper;
-import ru.top.security_service.model.User;
 import ru.top.security_service.repository.UserRepository;
 import ru.top.security_service.service.entity.UserService;
 
@@ -14,23 +13,17 @@ import ru.top.security_service.service.entity.UserService;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    private final UserRepository repository;
+    private final UserRepository userRepository;
     private final UserMapper userMapper;
 
     @Override
-    public UserData getUser(UserData userData) {
-
-        User user = repository.findByUsernameAndPassword(userData.getUsername(), userData.getPassword())
-                .orElseThrow(() -> new UserNotFoundException("Uncorrect Username or password"));
-
-        return userMapper.toData(user);
+    public void save(UserData userData) {
+        userRepository.save(userMapper.toEntity(userData));
     }
 
     @Override
-    public void save(UserData userData) {
-
-        var user = userMapper.toEntity(userData);
-
-        repository.save(user);
+    public UserData getByUsername(String username) {
+        return userMapper.toData(userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Пользователь не найден")));
     }
 }

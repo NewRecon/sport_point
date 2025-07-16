@@ -16,5 +16,22 @@ services:
       timeout: 5s
       retries: 5
 
+  profile-service-pg:
+    image: "postgres:16.9"
+    container_name: "profile-service-pg"
+    ports:
+      - "25432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=profile_service_db
+    volumes:
+      - db:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
 volumes:
   db:

@@ -1,17 +1,12 @@
 package ru.top.security_service.service.security.impl;
 
-import java.security.Key;
 import java.util.Date;
-
-import javax.crypto.SecretKey;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.security.Keys;
 import ru.top.security_service.dto.UserData;
 import ru.top.security_service.service.security.JwtService;
 
@@ -26,6 +21,8 @@ public class JwtServiceImpl implements JwtService {
 
         var claims = buildClaims(userData);
         var expirationDate = new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24);
+
+        // TODO getKey(jwtSigningKey)
         // var key = getKey(jwtSigningKey);
 
         return Jwts.builder()
@@ -57,9 +54,9 @@ public class JwtServiceImpl implements JwtService {
                 .build();
     }
 
-    private Key getKey(String jwtSigningKey) {
-        byte[] keyBytes = Decoders.BASE64.decode(jwtSigningKey);
+    // private Key getKey(String jwtSigningKey) {
+    // byte[] keyBytes = Decoders.BASE64.decode(jwtSigningKey);
 
-        return Keys.hmacShaKeyFor(keyBytes);
-    }
+    // return Keys.hmacShaKeyFor(keyBytes);
+    // }
 }

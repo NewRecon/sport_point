@@ -9,5 +9,5 @@ import ru.top.security_service.model.User;
 
 public interface UserRepository extends JpaRepository<User, UUID> {
 
-    Optional<User> findByUsernameAndPassword(String username, String password);
+    Optional<User> findByUsername(String username);
 }
