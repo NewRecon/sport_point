@@ -11,7 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Table(name = "users")
+@Table(name = "profile")
 @Entity
 @Setter
 @Getter
@@ -23,4 +23,5 @@ public class Profile {
     @Id
     private UUID id;
     private String name;
+    private Integer age;
 }
