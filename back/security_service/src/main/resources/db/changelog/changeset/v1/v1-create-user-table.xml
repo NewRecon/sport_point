@@ -7,7 +7,12 @@
 
     <changeSet id="v1-1" author="Maxim Shabanov">
         <createTable tableName="_user">
-
+            <column name="id" type="uuid"/>
+            <column name="email" type="varchar(255)"/>
+            <column name="password" type="varchar(255)"/>
+            <column name="role" type="varchar(255)"/>
+            <column name="username" type="varchar(255)"/>
         </createTable>
+        <addPrimaryKey tableName="_user" columnNames="id"/>
     </changeSet>
 </databaseChangeLog>

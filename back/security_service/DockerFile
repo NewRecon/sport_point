@@ -1,0 +1,23 @@
+# Базовый образ с Java
+FROM openjdk:26-slim AS base
+
+# Установка зависимостей
+RUN apt-get update && \
+    apt-get install -y wget unzip
+
+# Рабочая директория
+WORKDIR /app
+
+# Скачать Liquibase и установить его
+RUN wget https://github.com/liquibase/liquibase/releases/download/v4.33.0/liquibase-4.33.0.zip && \
+    unzip liquibase-*.zip && rm liquibase-*.zip
+
+# Убедимся, что всё готово к запуску
+ENV PATH="/app:$PATH"
+
+# Копируем наши ченджлоги и конфиг
+COPY ./src/main/resources/db/changelog /app/changelog
+COPY ./src/main/resources/config.properties /app/config.properties
+
+# Запускаем Liquibase
+CMD ["./liquibase", "--defaultsFile=config.properties", "update"]

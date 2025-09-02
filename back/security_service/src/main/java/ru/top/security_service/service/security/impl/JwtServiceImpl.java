@@ -1,14 +1,15 @@
 package ru.top.security_service.service.security.impl;
 
-import java.util.Date;
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 import ru.top.security_service.dto.UserData;
 import ru.top.security_service.service.security.JwtService;
+
+import java.security.Key;
+import java.util.Date;
 
 @Service
 public class JwtServiceImpl implements JwtService {
@@ -22,13 +23,12 @@ public class JwtServiceImpl implements JwtService {
         var claims = buildClaims(userData);
         var expirationDate = new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24);
 
-        // TODO getKey(jwtSigningKey)
-        // var key = getKey(jwtSigningKey);
+        var key = getKey(jwtSigningKey);
 
         return Jwts.builder()
                 .claims(claims)
                 .expiration(expirationDate)
-                // .signWith(key)
+                .signWith(key)
                 .compact();
     }
 
@@ -50,13 +50,11 @@ public class JwtServiceImpl implements JwtService {
                 .subject(user.getUsername())
                 .add("role", user.getRole())
                 .add("email", user.getEmail())
-                .add("userId", user.getUserId())
+                .add("userId", user.getId())
                 .build();
     }
 
-    // private Key getKey(String jwtSigningKey) {
-    // byte[] keyBytes = Decoders.BASE64.decode(jwtSigningKey);
-
-    // return Keys.hmacShaKeyFor(keyBytes);
-    // }
+    private Key getKey(String jwtSigningKey) {
+        return Keys.hmacShaKeyFor(jwtSigningKey.getBytes());
+    }
 }

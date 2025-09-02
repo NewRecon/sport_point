@@ -1,19 +1,16 @@
 package ru.top.security_service.service.security.impl;
 
-import java.util.UUID;
-
-import javax.management.RuntimeErrorException;
-
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import lombok.RequiredArgsConstructor;
 import ru.top.security_service.dto.UserData;
 import ru.top.security_service.dto.rs.LoginRs;
 import ru.top.security_service.enums.Role;
 import ru.top.security_service.service.entity.UserService;
 import ru.top.security_service.service.security.JwtService;
 import ru.top.security_service.service.security.SecurityService;
+
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -47,7 +44,7 @@ public class SecurityServiceImpl implements SecurityService {
     public LoginRs register(UserData userData) {
 
         userData = userData.toBuilder()
-                .userId(UUID.randomUUID())
+                .id(UUID.randomUUID())
                 .role(Role.USER)
                 .password(passwordEncoder.encode(userData.getPassword()))
                 .build();

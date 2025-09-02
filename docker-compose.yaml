@@ -9,7 +9,7 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=security_service_db
     volumes:
-      - db:/var/lib/postgresql/data
+      - db:/var/lib/postgresql/security-service/data
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}" ]
       interval: 10s
@@ -26,12 +26,18 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=profile_service_db
     volumes:
-      - db:/var/lib/postgresql/data
+      - db:/var/lib/postgresql/profile-service/data
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}" ]
       interval: 10s
       timeout: 5s
       retries: 5
+
+  liquibase-security-service-pg:
+    build: ./back/security_service
+    depends_on:
+      - security-service-pg
+      - profile-service-pg
 
 volumes:
   db:
