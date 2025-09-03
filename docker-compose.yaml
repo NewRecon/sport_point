@@ -33,11 +33,5 @@ services:
       timeout: 5s
       retries: 5
 
-  liquibase-security-service-pg:
-    build: ./back/security_service
-    depends_on:
-      - security-service-pg
-      - profile-service-pg
-
 volumes:
   db:

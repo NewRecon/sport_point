@@ -5,5 +5,5 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd
                         http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.2.xsd">
 
-    <include file="changeset/v1/v1-create-user-table.xml"/>
+    <include file="db/changelog/changeset/v1/v1-create-user-table.xml"/>
 </databaseChangeLog>
